@@ -121,7 +121,7 @@ awkwardness of PDO base classes by using interfaces instead.
 		/**
 		 * Quote a string for safe use in a query
 		 * @return string
-		 * @param string $string
+		 * @param string $data
 		 */
 		public function quote($data);
 		
