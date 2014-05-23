@@ -144,7 +144,7 @@ awkwardness of PDO base classes by using interfaces instead.
 		  * @return string
 		  * @param string $data
 		  */
-		public function unsescapeBinary($data);
+		public function unescapeBinary($data);
 	}
 	?>
 ```
@@ -618,7 +618,7 @@ awkwardness of PDO base classes by using interfaces instead.
 	?>
 ```
 
-### IDA\Feature\TransactingConnection
+### IDA\Feature\TransactionalConnection
 ```php
 	<?php
 	
@@ -627,7 +627,7 @@ awkwardness of PDO base classes by using interfaces instead.
 	/**
 	 * Indicates that the implementation supports transactions.
 	 */
-	interface TransactingConnection
+	interface TransactionalConnection
 	{
 		/**
 		 * Start a transaction
@@ -640,7 +640,7 @@ awkwardness of PDO base classes by using interfaces instead.
 	?>
 ```
 
-### IDA\Feature\AsyncTransactingConnection
+### IDA\Feature\AsyncTransactionalConnection
 ```php
 	<?php
 	
@@ -649,7 +649,7 @@ awkwardness of PDO base classes by using interfaces instead.
 	/**
 	 * Indicates that the connection implementation can start transactions asynchronously.
 	 */
-	interface AsyncTransactingConnection
+	interface AsyncTransactionalConnection
 	{
 		/**
 		 * Start a transaction asynchronously
