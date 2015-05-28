@@ -37,8 +37,8 @@ PHP_IDA_API zend_class_entry *php_ida_LOB_ce;
 
 /* Features */
 PHP_IDA_API zend_class_entry *php_ida_AsyncConnection_ce;
-PHP_IDA_API zend_class_entry *php_ida_TransactingConnection_ce;
-PHP_IDA_API zend_class_entry *php_ida_AsyncTransactingConnection_ce;
+PHP_IDA_API zend_class_entry *php_ida_TransactionalConnection_ce;
+PHP_IDA_API zend_class_entry *php_ida_AsyncTransactionalConnection_ce;
 PHP_IDA_API zend_class_entry *php_ida_AsyncTransaction_ce;
 PHP_IDA_API zend_class_entry *php_ida_SavepointTransaction_ce;
 PHP_IDA_API zend_class_entry *php_ida_AsyncSavepointTransaction_ce;

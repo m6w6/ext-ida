@@ -90,7 +90,7 @@ ZEND_END_ARG_INFO();
 /**
  * Quote a string for safe use in a query
  * @return string
- * @param string $string
+ * @param string $data
  */
 ZEND_BEGIN_ARG_INFO_EX(ai_Connection_quote, 0, 0, 1)
 	ZEND_ARG_INFO(0, data) 
@@ -119,7 +119,7 @@ ZEND_END_ARG_INFO();
   * @return string
   * @param string $data
   */
-ZEND_BEGIN_ARG_INFO_EX(ai_Connection_unsescapeBinary, 0, 0, 1)
+ZEND_BEGIN_ARG_INFO_EX(ai_Connection_unescapeBinary, 0, 0, 1)
 	ZEND_ARG_INFO(0, data) 
 ZEND_END_ARG_INFO();
 
@@ -172,7 +172,7 @@ static zend_function_entry php_ida_Connection_me[] = {
 	/**
 	 * Quote a string for safe use in a query
 	 * @return string
-	 * @param string $string
+	 * @param string $data
 	 */
 	PHP_ABSTRACT_ME(Connection, quote, ai_Connection_quote)
 
@@ -195,7 +195,7 @@ static zend_function_entry php_ida_Connection_me[] = {
 	  * @return string
 	  * @param string $data
 	  */
-	PHP_ABSTRACT_ME(Connection, unsescapeBinary, ai_Connection_unsescapeBinary)
+	PHP_ABSTRACT_ME(Connection, unescapeBinary, ai_Connection_unescapeBinary)
 
 	{NULL}
 };
@@ -964,12 +964,12 @@ static zend_function_entry php_ida_AsyncConnection_me[] = {
 
 /* }}} */
 
-/* {{{ IDA\Feature\TransactingConnection */
+/* {{{ IDA\Feature\TransactionalConnection */
 
 /**
  * Indicates that the implementation supports transactions.
  */
-zend_class_entry *php_ida_TransactingConnection_ce;
+zend_class_entry *php_ida_TransactionalConnection_ce;
 
 /**
  * Start a transaction
@@ -977,32 +977,32 @@ zend_class_entry *php_ida_TransactingConnection_ce;
  * @param int $isolation
  * @param bool $readonly
  */
-ZEND_BEGIN_ARG_INFO_EX(ai_TransactingConnection_startTransaction, 0, 0, 0)
+ZEND_BEGIN_ARG_INFO_EX(ai_TransactionalConnection_startTransaction, 0, 0, 0)
 	ZEND_ARG_INFO(0, isolation) 
 	ZEND_ARG_INFO(0, readonly) 
 ZEND_END_ARG_INFO();
 
 
-static zend_function_entry php_ida_TransactingConnection_me[] = {
+static zend_function_entry php_ida_TransactionalConnection_me[] = {
 	/**
 	 * Start a transaction
 	 * @return IDA\Transaction
 	 * @param int $isolation
 	 * @param bool $readonly
 	 */
-	PHP_ABSTRACT_ME(TransactingConnection, startTransaction, ai_TransactingConnection_startTransaction)
+	PHP_ABSTRACT_ME(TransactionalConnection, startTransaction, ai_TransactionalConnection_startTransaction)
 
 	{NULL}
 };
 
 /* }}} */
 
-/* {{{ IDA\Feature\AsyncTransactingConnection */
+/* {{{ IDA\Feature\AsyncTransactionalConnection */
 
 /**
  * Indicates that the connection implementation can start transactions asynchronously.
  */
-zend_class_entry *php_ida_AsyncTransactingConnection_ce;
+zend_class_entry *php_ida_AsyncTransactionalConnection_ce;
 
 /**
  * Start a transaction asynchronously
@@ -1010,20 +1010,20 @@ zend_class_entry *php_ida_AsyncTransactingConnection_ce;
  * @param int $isolation
  * @param bool $readonly
  */
-ZEND_BEGIN_ARG_INFO_EX(ai_AsyncTransactingConnection_startTransactionAsync, 0, 0, 0)
+ZEND_BEGIN_ARG_INFO_EX(ai_AsyncTransactionalConnection_startTransactionAsync, 0, 0, 0)
 	ZEND_ARG_INFO(0, isolation) 
 	ZEND_ARG_INFO(0, readonly) 
 ZEND_END_ARG_INFO();
 
 
-static zend_function_entry php_ida_AsyncTransactingConnection_me[] = {
+static zend_function_entry php_ida_AsyncTransactionalConnection_me[] = {
 	/**
 	 * Start a transaction asynchronously
 	 * @return IDA\Transaction
 	 * @param int $isolation
 	 * @param bool $readonly
 	 */
-	PHP_ABSTRACT_ME(AsyncTransactingConnection, startTransactionAsync, ai_AsyncTransactingConnection_startTransactionAsync)
+	PHP_ABSTRACT_ME(AsyncTransactionalConnection, startTransactionAsync, ai_AsyncTransactionalConnection_startTransactionAsync)
 
 	{NULL}
 };
@@ -1299,15 +1299,15 @@ PHP_MINIT_FUNCTION(ida)
 	 * Indicates that the implementation supports transactions.
 	 */
 	memset(&ce, 0, sizeof(ce));
-	INIT_NS_CLASS_ENTRY(ce, "IDA\\Feature", "TransactingConnection", php_ida_TransactingConnection_me);
-	php_ida_TransactingConnection_ce = zend_register_internal_interface(&ce TSRMLS_CC);
+	INIT_NS_CLASS_ENTRY(ce, "IDA\\Feature", "TransactionalConnection", php_ida_TransactionalConnection_me);
+	php_ida_TransactionalConnection_ce = zend_register_internal_interface(&ce TSRMLS_CC);
 
 	/**
 	 * Indicates that the connection implementation can start transactions asynchronously.
 	 */
 	memset(&ce, 0, sizeof(ce));
-	INIT_NS_CLASS_ENTRY(ce, "IDA\\Feature", "AsyncTransactingConnection", php_ida_AsyncTransactingConnection_me);
-	php_ida_AsyncTransactingConnection_ce = zend_register_internal_interface(&ce TSRMLS_CC);
+	INIT_NS_CLASS_ENTRY(ce, "IDA\\Feature", "AsyncTransactionalConnection", php_ida_AsyncTransactionalConnection_me);
+	php_ida_AsyncTransactionalConnection_ce = zend_register_internal_interface(&ce TSRMLS_CC);
 
 	/**
 	 * Indicates that the transaction implementation supports asynchronous commit/rollback.
